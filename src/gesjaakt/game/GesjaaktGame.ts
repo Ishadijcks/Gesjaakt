@@ -5,6 +5,7 @@ import { Random } from "@/util/Random";
 import { DrawnCard } from "@/gesjaakt/game/DrawnCard";
 import { GesjaaktAction } from "@/gesjaakt/game/GesjaaktAction";
 import { GesjaaktState } from "@/gesjaakt/game/GesjaaktState";
+import { GesjaaktResult } from "@/gesjaakt/game/GesjaaktResult";
 
 export class GesjaaktGame {
   players: GesjaaktPlayer[];
@@ -13,7 +14,7 @@ export class GesjaaktGame {
 
   turnsTaken: number;
 
-  drawnCard?: DrawnCard;
+  drawnCard: DrawnCard | null = null;
 
   deck: Deck;
 
@@ -50,14 +51,27 @@ export class GesjaaktGame {
       : Random.intBetween(0, this.players.length);
   }
 
-  public simulate() {
+  public simulate(): GesjaaktResult {
     this.reset();
 
     while (!this.isGameOver()) {
+      console.log("Starting turn", this.turnsTaken);
       this.takeTurn();
-      this.nextPlayer();
+      this.turnsTaken++;
     }
-    console.log("Game over");
+
+    let winnerIndex = -1;
+    let bestScore = -Infinity;
+    this.players.forEach((player: GesjaaktPlayer, index: number) => {
+      if (player.currentScore() > bestScore) {
+        bestScore = player.currentScore();
+        winnerIndex = index;
+      }
+    });
+    return new GesjaaktResult(
+      this.players.map((player: GesjaaktPlayer) => player.getState()),
+      winnerIndex
+    );
   }
 
   public isGameOver(): boolean {
@@ -82,9 +96,11 @@ export class GesjaaktGame {
       case GesjaaktAction.PlaceToken:
         currentPlayer.loseToken();
         this.drawnCard.addToken();
+        this.nextPlayer();
         return;
       case GesjaaktAction.TakeCard:
         currentPlayer.takeCard(this.drawnCard);
+        this.drawnCard = null;
         break;
     }
   }

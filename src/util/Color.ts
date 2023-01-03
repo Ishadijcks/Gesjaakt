@@ -14,9 +14,9 @@ export class Colors {
     let tmpColor: RGB;
     for (let i = 0; i < steps; i++) {
       tmpColor = { r: 0, g: 0, b: 0 };
-      tmpColor.r = color1.r + (i * (color2.r - color1.r)) / steps;
-      tmpColor.g = color1.g + (i * (color2.g - color1.g)) / steps;
-      tmpColor.b = color1.b + (i * (color2.b - color1.b)) / steps;
+      tmpColor.r = Math.floor(color1.r + (i * (color2.r - color1.r)) / steps);
+      tmpColor.g = Math.floor(color1.g + (i * (color2.g - color1.g)) / steps);
+      tmpColor.b = Math.floor(color1.b + (i * (color2.b - color1.b)) / steps);
       colorList.push(tmpColor);
     }
     return colorList;

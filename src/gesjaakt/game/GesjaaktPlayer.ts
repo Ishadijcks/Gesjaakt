@@ -58,6 +58,7 @@ export class GesjaaktPlayer {
 
   public getState(): PlayerState {
     return {
+      name: this.name,
       cards: this.cards,
       tokens: this.tokens,
       currentScore: this.currentScore(),
