@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { Deck } from "@/gesjaakt/game/Deck";
 import { Card } from "@/gesjaakt/game/Card";
 
-// The two tests marked with concurrent will be run in parallel
 describe("Deck", () => {
   it("should shuffle cards when instantiating the deck", function () {
     // Arrange
