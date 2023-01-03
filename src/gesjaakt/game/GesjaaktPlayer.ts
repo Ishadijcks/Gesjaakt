@@ -1,6 +1,9 @@
 import type { AbstractStrategy } from "@/gesjaakt/strategies/AbstractStrategy";
 import type { Card } from "@/gesjaakt/game/Card";
 import type { DrawnCard } from "@/gesjaakt/game/DrawnCard";
+import type { GesjaaktState } from "@/gesjaakt/game/GesjaaktState";
+import { GesjaaktAction } from "@/gesjaakt/game/GesjaaktAction";
+import type { PlayerState } from "@/gesjaakt/game/PlayerState";
 
 export class GesjaaktPlayer {
   name: string;
@@ -14,6 +17,12 @@ export class GesjaaktPlayer {
     this.strategy = strategy;
     this.cards = [];
     this.tokens = 0;
+  }
+
+  public calculateMove(state: GesjaaktState): GesjaaktAction {
+    return this.tokens === 0
+      ? GesjaaktAction.TakeCard
+      : this.strategy.calculateMove(state);
   }
 
   public takeCard(card: DrawnCard) {
@@ -41,5 +50,17 @@ export class GesjaaktPlayer {
       return sum + card.value;
     }, 0);
     return sum - this.tokens;
+  }
+
+  public loseToken(): void {
+    this.tokens--;
+  }
+
+  public getState(): PlayerState {
+    return {
+      cards: this.cards,
+      tokens: this.tokens,
+      currentScore: this.currentScore(),
+    };
   }
 }

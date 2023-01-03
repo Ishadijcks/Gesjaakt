@@ -1,6 +1,7 @@
-import type { Card } from "@/gesjaakt/game/Card";
+import { Card } from "@/gesjaakt/game/Card";
 import { Random } from "@/util/Random";
 import { GesjaaktError } from "@/gesjaakt/errors/GesjaaktError";
+import { Colors } from "@/util/Color";
 
 export class Deck {
   private readonly _originalCards: Card[];
@@ -32,5 +33,20 @@ export class Deck {
 
   public get cards(): Card[] {
     return this._cards;
+  }
+
+  public static createDefaultDeck(): Deck {
+    const lowestCard = 3;
+    const highestCard = 35;
+    const colors = Colors.createColorRange(
+      { r: 255, g: 0, b: 0 },
+      { r: 0, g: 0, b: 0 },
+      highestCard - lowestCard + 1
+    );
+    const cards = [];
+    for (let i = lowestCard; i <= highestCard; i++) {
+      cards.push(new Card(i, Colors.toHex(colors[i - lowestCard])));
+    }
+    return new Deck(cards);
   }
 }

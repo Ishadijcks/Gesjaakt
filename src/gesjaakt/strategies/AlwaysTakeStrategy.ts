@@ -6,7 +6,7 @@ export class AlwaysTakeStrategy extends AbstractStrategy {
     super("AlwaysTake", "A basic strategy which always takes the card");
   }
 
-  performMove(): GesjaaktAction {
+  calculateMove(): GesjaaktAction {
     return GesjaaktAction.TakeCard;
   }
 }

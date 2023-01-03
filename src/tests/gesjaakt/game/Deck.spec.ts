@@ -67,4 +67,15 @@ describe("Deck", () => {
     // Assert
     expect(deck.cardsLeft).toBe(1);
   });
+
+  it("should create a default deck with the right number of cards", function () {
+    // Arrange
+    const deck = Deck.createDefaultDeck();
+
+    // Act
+    const cards = deck.cardsLeft;
+
+    // Assert
+    expect(cards).toBe(35 - 3 + 1);
+  });
 });

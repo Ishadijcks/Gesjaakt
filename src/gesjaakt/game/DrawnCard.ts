@@ -8,4 +8,8 @@ export class DrawnCard {
     this.card = card;
     this.tokens = tokens;
   }
+
+  public addToken(): void {
+    this.tokens++;
+  }
 }

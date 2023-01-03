@@ -6,7 +6,7 @@ export class NeverTakeStrategy extends AbstractStrategy {
     super("NeverTake", "A basic strategy which never takes the card");
   }
 
-  performMove(): GesjaaktAction {
+  calculateMove(): GesjaaktAction {
     return GesjaaktAction.PlaceToken;
   }
 }

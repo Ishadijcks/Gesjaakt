@@ -13,7 +13,7 @@ export class RandomlyTakeStrategy extends AbstractStrategy {
     this.probability = probability;
   }
 
-  performMove(): GesjaaktAction {
+  calculateMove(): GesjaaktAction {
     return Math.random() <= this.probability
       ? GesjaaktAction.TakeCard
       : GesjaaktAction.PlaceToken;

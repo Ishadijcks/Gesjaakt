@@ -22,5 +22,5 @@ export abstract class AbstractStrategy {
   /**
    * Process the game state and return an action to win the game!
    */
-  public abstract performMove(state: GesjaaktState): GesjaaktAction;
+  public abstract calculateMove(state: GesjaaktState): GesjaaktAction;
 }

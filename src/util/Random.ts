@@ -18,4 +18,13 @@ export class Random {
 
     return array;
   }
+
+  /**
+   * Return a random integer between min (inclusive) and max (exclusive)
+   * @param min inclusive
+   * @param max exclusive
+   */
+  static intBetween(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 }
