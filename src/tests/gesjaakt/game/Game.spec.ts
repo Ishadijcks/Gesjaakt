@@ -21,7 +21,6 @@ describe("Game", () => {
         isTokenCountPublic: true,
         randomizePlayerOrder: false,
         firstPlayerStarts: true,
-        playerCount: 3,
       }
     );
 

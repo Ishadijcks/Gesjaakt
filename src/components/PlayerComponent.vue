@@ -10,7 +10,7 @@ const props = defineProps<{
 
 <template>
   <div
-    class="flex flex-col h-48 p-2 bg-green-100 border-4 border-green-400 w-full"
+    class="flex flex-col h-36 p-2 bg-green-100 border-4 border-green-400 w-full"
     :class="{ 'bg-green-300': yourTurn }"
   >
     <div class="text-center">
@@ -20,7 +20,7 @@ const props = defineProps<{
       Tokens) [Score {{ player.currentScore() }}]
     </div>
 
-    <div class="flex flex-row overflow-x-scroll">
+    <div class="flex flex-row">
       <CardComponent
         :card="card"
         class=""

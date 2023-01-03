@@ -1,8 +1,6 @@
 export interface GesjaaktConfig {
   debug: boolean;
 
-  playerCount: number;
-
   startingTokens: number;
 
   // Whether you can see the amount of tokens other players have

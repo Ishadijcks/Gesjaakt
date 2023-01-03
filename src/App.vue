@@ -6,12 +6,14 @@ import { TakeIfFreeStrategy } from "@/gesjaakt/strategies/TakeIfFreeStrategy";
 import { TokenValueStrategy } from "@/gesjaakt/strategies/TokenValueStrategy";
 import { NeverTakeStrategy } from "@/gesjaakt/strategies/NeverTakeStrategy";
 import { reactive } from "vue";
+import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
 
 const game = reactive(
   new GesjaaktGame(
     [
       new GesjaaktPlayer("Lvl 1 Noob", new TakeIfFreeStrategy()),
-      new GesjaaktPlayer("Lvl 50 Crook", new TokenValueStrategy(3)),
+      new GesjaaktPlayer("Lvl 50 Crook", new TokenValueStrategy(2)),
+      new GesjaaktPlayer("Lvl 0.5 Yolo", new RandomlyTakeStrategy(0.3)),
       new GesjaaktPlayer("Lvl 100 Boss", new NeverTakeStrategy()),
     ],
     {
@@ -21,7 +23,6 @@ const game = reactive(
       isTokenCountPublic: true,
       randomizePlayerOrder: false,
       firstPlayerStarts: true,
-      playerCount: 3,
     }
   )
 );
