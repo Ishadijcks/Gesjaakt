@@ -6,6 +6,7 @@ import { DrawnCard } from "@/gesjaakt/game/DrawnCard";
 import { GesjaaktAction } from "@/gesjaakt/game/GesjaaktAction";
 import { GesjaaktState } from "@/gesjaakt/game/GesjaaktState";
 import { GesjaaktResult } from "@/gesjaakt/game/GesjaaktResult";
+import type { Card } from "@/gesjaakt/game/Card";
 
 export class GesjaaktGame {
   players: GesjaaktPlayer[];
@@ -74,6 +75,22 @@ export class GesjaaktGame {
     );
   }
 
+  public static calculateScore(cards: Card[], tokens: number): number {
+    if (cards.length === 0) {
+      return -tokens;
+    }
+    const filteredCards = cards.filter((card: Card, index: number) => {
+      if (index === 0) {
+        return true;
+      }
+      return card.value != cards[index - 1].value + 1;
+    });
+    const sum = filteredCards.reduce((sum: number, card: Card) => {
+      return sum + card.value;
+    }, 0);
+    return sum - tokens;
+  }
+
   public isGameOver(): boolean {
     return !this.drawnCard && this.deck.isEmpty();
   }
@@ -88,7 +105,7 @@ export class GesjaaktGame {
 
     let action: GesjaaktAction;
     try {
-      action = currentPlayer.calculateMove(state);
+      action = currentPlayer.calculateMove(state) ?? GesjaaktAction.TakeCard;
     } catch (e) {
       action = GesjaaktAction.TakeCard;
     }

@@ -57,11 +57,6 @@ export class GesjaaktPlayer {
   }
 
   public getState(): PlayerState {
-    return new PlayerState(
-      this.name,
-      this.cards,
-      this.tokens,
-      this.currentScore()
-    );
+    return new PlayerState(this.name, this.cards, this.tokens);
   }
 }

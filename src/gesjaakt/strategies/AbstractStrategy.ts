@@ -1,5 +1,6 @@
 import type { GesjaaktState } from "@/gesjaakt/game/GesjaaktState";
 import type { GesjaaktAction } from "@/gesjaakt/game/GesjaaktAction";
+import { GesjaaktGame } from "@/gesjaakt/game/GesjaaktGame";
 
 /**
  * The base class to extend from when implementing your own strategy.
@@ -23,4 +24,14 @@ export abstract class AbstractStrategy {
    * Process the game state and return an action to win the game!
    */
   public abstract calculateMove(state: GesjaaktState): GesjaaktAction;
+
+  /**
+   * Returns your new score if you would take the drawn card
+   */
+  public scoreIfTaking(state: GesjaaktState): number {
+    return GesjaaktGame.calculateScore(
+      [...state.currentPlayer.cards, state.drawnCard.card],
+      state.currentPlayer.tokens
+    );
+  }
 }
