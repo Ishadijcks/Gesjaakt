@@ -55,15 +55,15 @@ export class GesjaaktGame {
     this.reset();
 
     while (!this.isGameOver()) {
-      console.log("Starting turn", this.turnsTaken);
       this.takeTurn();
       this.turnsTaken++;
     }
 
+    // Calculate the winner
     let winnerIndex = -1;
-    let bestScore = -Infinity;
+    let bestScore = Infinity;
     this.players.forEach((player: GesjaaktPlayer, index: number) => {
-      if (player.currentScore() > bestScore) {
+      if (player.currentScore() < bestScore) {
         bestScore = player.currentScore();
         winnerIndex = index;
       }
@@ -94,11 +94,21 @@ export class GesjaaktGame {
     }
     switch (action) {
       case GesjaaktAction.PlaceToken:
+        if (this.config.debug) {
+          console.log(
+            `${currentPlayer.name} got ${this.drawnCard} and placed a token`
+          );
+        }
         currentPlayer.loseToken();
         this.drawnCard.addToken();
         this.nextPlayer();
-        return;
+        break;
       case GesjaaktAction.TakeCard:
+        if (this.config.debug) {
+          console.log(
+            `${currentPlayer.name} got ${this.drawnCard} and took it`
+          );
+        }
         currentPlayer.takeCard(this.drawnCard);
         this.drawnCard = null;
         break;

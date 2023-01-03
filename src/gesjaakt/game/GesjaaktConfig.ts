@@ -1,4 +1,6 @@
 export interface GesjaaktConfig {
+  debug: boolean;
+
   playerCount: number;
 
   startingTokens: number;

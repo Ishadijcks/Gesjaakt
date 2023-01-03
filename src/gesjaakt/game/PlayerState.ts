@@ -18,4 +18,10 @@ export class PlayerState {
     this.tokens = tokens;
     this.currentScore = currentScore;
   }
+
+  public toString(): string {
+    return `
+    ${this.name}. tokens: ${this.tokens}, score: ${this.currentScore}
+    cards: [${this.cards.map((card: Card) => card.value).join(",")}]`;
+  }
 }

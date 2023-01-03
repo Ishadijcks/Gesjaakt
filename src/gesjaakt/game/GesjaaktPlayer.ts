@@ -3,7 +3,7 @@ import type { Card } from "@/gesjaakt/game/Card";
 import type { DrawnCard } from "@/gesjaakt/game/DrawnCard";
 import type { GesjaaktState } from "@/gesjaakt/game/GesjaaktState";
 import { GesjaaktAction } from "@/gesjaakt/game/GesjaaktAction";
-import type { PlayerState } from "@/gesjaakt/game/PlayerState";
+import { PlayerState } from "@/gesjaakt/game/PlayerState";
 
 export class GesjaaktPlayer {
   name: string;
@@ -57,11 +57,11 @@ export class GesjaaktPlayer {
   }
 
   public getState(): PlayerState {
-    return {
-      name: this.name,
-      cards: this.cards,
-      tokens: this.tokens,
-      currentScore: this.currentScore(),
-    };
+    return new PlayerState(
+      this.name,
+      this.cards,
+      this.tokens,
+      this.currentScore()
+    );
   }
 }

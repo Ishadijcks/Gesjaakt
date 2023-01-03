@@ -12,4 +12,11 @@ export class GesjaaktResult {
   public get winner(): PlayerState {
     return this.players[this.winnerIndex];
   }
+
+  public toString(): string {
+    return `    ===========================
+    The winner is ${this.winner.name} with ${this.winner.currentScore} points!
+    ${this.players.map((player) => player.toString()).join("\n")}
+    ===========================`;
+  }
 }

@@ -12,4 +12,8 @@ export class DrawnCard {
   public addToken(): void {
     this.tokens++;
   }
+
+  public toString(): string {
+    return `(-${this.card.value}, ${this.tokens})`;
+  }
 }
