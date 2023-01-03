@@ -38,14 +38,19 @@ export class Deck {
   public static createDefaultDeck(): Deck {
     const lowestCard = 3;
     const highestCard = 35;
-    const colors = Colors.createColorRange(
-      { r: 255, g: 0, b: 0 },
-      { r: 0, g: 0, b: 0 },
+    const colors = Colors.createHsvColorRange(
+      40,
+      320,
+      1,
+      1,
       highestCard - lowestCard + 1
     );
+    console.log(colors.map((hsv) => Colors.toHex(Colors.toRgb(hsv))));
     const cards = [];
     for (let i = lowestCard; i <= highestCard; i++) {
-      cards.push(new Card(i, Colors.toHex(colors[i - lowestCard])));
+      cards.push(
+        new Card(i, Colors.toHex(Colors.toRgb(colors[i - lowestCard])))
+      );
     }
     return new Deck(cards);
   }
