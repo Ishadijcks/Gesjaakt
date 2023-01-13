@@ -34,10 +34,6 @@ export class GesjaaktGame {
    * Initialises the players and deck,
    */
   public reset(): void {
-    if (this.config.randomizePlayerOrder) {
-      this.players = Random.shuffle(this.players);
-    }
-
     this.deck = Deck.createDefaultDeck();
     for (let i = 0; i < this.config.discardedCards; i++) {
       this.deck.draw();
@@ -45,6 +41,7 @@ export class GesjaaktGame {
 
     this.players.forEach((player: GesjaaktPlayer) => {
       player.tokens = this.config.startingTokens;
+      player.cards = [];
     });
 
     this.currentPlayerIndex = this.config.firstPlayerStarts
@@ -56,6 +53,14 @@ export class GesjaaktGame {
     this.reset();
 
     while (!this.isGameOver()) {
+      const totalCards =
+        this.players.reduce((sum, player) => sum + player.cards.length, 0) +
+        this.deck.cardsLeft +
+        (this.drawnCard != undefined ? 1 : 0);
+      if (totalCards + this.config.discardedCards != 35 - 2) {
+        console.log(totalCards, this.config.discardedCards);
+        throw new Error("Invalid amount of cards");
+      }
       this.takeTurn();
       this.turnsTaken++;
     }
@@ -69,10 +74,7 @@ export class GesjaaktGame {
         winnerIndex = index;
       }
     });
-    return new GesjaaktResult(
-      this.players.map((player: GesjaaktPlayer) => player.getState()),
-      winnerIndex
-    );
+    return new GesjaaktResult(this.players, winnerIndex);
   }
 
   public static calculateScore(cards: Card[], tokens: number): number {

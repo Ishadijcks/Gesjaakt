@@ -45,7 +45,7 @@ export class Deck {
       1,
       highestCard - lowestCard + 1
     );
-    console.log(colors.map((hsv) => Colors.toHex(Colors.toRgb(hsv))));
+
     const cards = [];
     for (let i = lowestCard; i <= highestCard; i++) {
       cards.push(

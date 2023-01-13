@@ -1,16 +1,20 @@
-import type { PlayerState } from "@/gesjaakt/game/PlayerState";
+import type { GesjaaktPlayer } from "@/gesjaakt/game/GesjaaktPlayer";
 
 export class GesjaaktResult {
-  players: PlayerState[];
-  winnerIndex: number;
+  players: GesjaaktPlayer[];
+  private readonly _winnerIndex: number;
 
-  constructor(players: PlayerState[], winnerIndex: number) {
+  constructor(players: GesjaaktPlayer[], winnerIndex: number) {
     this.players = players;
-    this.winnerIndex = winnerIndex;
+    this._winnerIndex = winnerIndex;
   }
 
-  public get winner(): PlayerState {
-    return this.players[this.winnerIndex];
+  public get winner(): GesjaaktPlayer {
+    return this.players[this._winnerIndex];
+  }
+
+  public get losers(): GesjaaktPlayer[] {
+    return this.players.filter((player) => player.name != this.winner.name);
   }
 
   public toString(): string {

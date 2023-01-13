@@ -8,6 +8,7 @@ import { PlayerState } from "@/gesjaakt/game/PlayerState";
 export class GesjaaktPlayer {
   name: string;
   strategy: AbstractStrategy;
+  elo: number = 1000;
 
   cards: Card[];
   tokens: number;
