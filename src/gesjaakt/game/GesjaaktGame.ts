@@ -34,6 +34,10 @@ export class GesjaaktGame {
    * Initialises the players and deck,
    */
   public reset(): void {
+    if (this.config.randomizePlayerOrder) {
+      this.players = Random.shuffle(this.players);
+    }
+
     this.deck = Deck.createDefaultDeck();
     for (let i = 0; i < this.config.discardedCards; i++) {
       this.deck.draw();
