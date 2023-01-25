@@ -16,11 +16,9 @@ export class Elo {
         loser.elo
       );
       totalWinnerDelta += winnerDelta / (players.length - 1);
-      console.log(loser.name, "loses", loserDelta);
       loser.elo += loserDelta / (players.length - 1);
     });
     winner.elo += totalWinnerDelta;
-    console.log(winner.name, "gains", totalWinnerDelta);
   }
 
   public static calculateElo(winner: number, loser: number): [number, number] {

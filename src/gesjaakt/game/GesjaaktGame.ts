@@ -62,7 +62,7 @@ export class GesjaaktGame {
         this.deck.cardsLeft +
         (this.drawnCard != undefined ? 1 : 0);
       if (totalCards + this.config.discardedCards != 35 - 2) {
-        console.log(totalCards, this.config.discardedCards);
+        console.error(totalCards, this.config.discardedCards);
         throw new Error("Invalid amount of cards");
       }
       this.takeTurn();
