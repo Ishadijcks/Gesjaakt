@@ -1,26 +1,33 @@
-# gesjaakt
+# Gesjaakt
+> Another fun game ruined by math
 
-This template should help get you started developing with Vue 3 in Vite.
+## Gesjaakt Rules
 
-## Recommended IDE Setup
+http://spelarch.vives.be/PDFspelregels/9119.pdf
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Type Support for `.vue` Imports in TS
+## Create your own strategy
+- Create a new file `src/gesjaakt/qers/<YourStrategy>.ts`
+- Your class needs to extend `AbstractStrategy`, or just copy the amazing `IshaStrategy` and tweak it
+- Just be nice and don't do any weird stuff in your `calculateMove()`
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Evaluate your strategy
+- Visualize single games by adding it to `src/App.vue` and view it in the browser
+- Run benchmarks by playing games against the same players `src/gesjaakt/benchmarks`
+- Or create a tournament with `src/tournaments`
+- Code Examples can be found in `src/tests`!
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## FAQ
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+> I need helper method X / Can you add Y to `GesjaaktState`?
 
-## Customize configuration
+Sure, or you can do it yourself by opening a pull request!
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+> Can I cheat?
 
+No
+
+## Run it
 ## Project Setup
 
 ```sh
@@ -31,22 +38,4 @@ npm install
 
 ```sh
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

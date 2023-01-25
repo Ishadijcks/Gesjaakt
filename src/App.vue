@@ -3,15 +3,16 @@ import GameComponent from "@/components/GameComponent.vue";
 import { GesjaaktGame } from "@/gesjaakt/game/GesjaaktGame";
 import { GesjaaktPlayer } from "@/gesjaakt/game/GesjaaktPlayer";
 import { TakeIfFreeStrategy } from "@/gesjaakt/strategies/TakeIfFreeStrategy";
-import { TokenValueStrategy } from "@/gesjaakt/strategies/TokenValueStrategy";
 import { reactive } from "vue";
+import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
+import { IshaStrategy } from "@/gesjaakt/qers/IshaStrategy";
 
 const game = reactive(
   new GesjaaktGame(
     [
-      new GesjaaktPlayer("Isha", new TokenValueStrategy(3)),
-      new GesjaaktPlayer("Random 0.2", new TakeIfFreeStrategy()),
-      new GesjaaktPlayer("Random 0.4", new TakeIfFreeStrategy()),
+      new GesjaaktPlayer("Isha (pro)", new IshaStrategy()),
+      new GesjaaktPlayer("Take if free", new TakeIfFreeStrategy()),
+      new GesjaaktPlayer("Random 0.3", new RandomlyTakeStrategy(0.3)),
     ],
     {
       debug: true,
