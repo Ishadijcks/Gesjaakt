@@ -1,21 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { GesjaaktPlayer } from "@/gesjaakt/game/GesjaaktPlayer";
-import { TokenValueStrategy } from "@/gesjaakt/strategies/TokenValueStrategy";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
-import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
-import { TakeIfFreeStrategy } from "@/gesjaakt/strategies/TakeIfFreeStrategy";
 import { NeverTakeStrategy } from "@/gesjaakt/strategies/NeverTakeStrategy";
+import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
 
 describe("Tournament", () => {
-  it("should simulate a tournament with a list of players", function () {
+  it("should let the best player win always*", function () {
     // Arrange
+    const ROUNDS = 1000;
     const tournament = new Tournament(
       [
-        new GesjaaktPlayer("Isha (pro)", new TokenValueStrategy(3)),
-        new GesjaaktPlayer("TakeRandom 0.1", new RandomlyTakeStrategy(0.1)),
-        new GesjaaktPlayer("TakeRandom 0.3", new RandomlyTakeStrategy(0.3)),
-        new GesjaaktPlayer("TakeIfFree", new TakeIfFreeStrategy()),
-        new GesjaaktPlayer("TakeNever", new NeverTakeStrategy()),
+        new GesjaaktPlayer("Never", new NeverTakeStrategy()),
+        new GesjaaktPlayer("TakeRandom 0.8", new RandomlyTakeStrategy(0.7)),
+        new GesjaaktPlayer("TakeRandom 0.8", new RandomlyTakeStrategy(0.7)),
       ],
       {
         randomizePlayerOrder: true,
@@ -25,7 +22,7 @@ describe("Tournament", () => {
         firstPlayerStarts: true,
         debug: false,
       },
-      1500
+      ROUNDS
     );
 
     // Act
@@ -36,6 +33,6 @@ describe("Tournament", () => {
     });
 
     // Assert
-    expect(true).toBeFalsy();
+    expect(result.wins["Never"]).toBeGreaterThanOrEqual(0.99 * ROUNDS);
   });
 });
