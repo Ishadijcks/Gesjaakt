@@ -53,18 +53,34 @@ export class GesjaaktGame {
       : Random.intBetween(0, this.players.length);
   }
 
+  /**
+   * Check whether we still have the correct amount of cards and tokens in play
+   */
+  public validateGame(): void {
+    const totalCards =
+      this.players.reduce((sum, player) => sum + player.cards.length, 0) +
+      this.deck.cardsLeft +
+      (this.drawnCard != undefined ? 1 : 0);
+    if (totalCards + this.config.discardedCards != 35 - 2) {
+      console.error(totalCards, this.config.discardedCards);
+      throw new Error("Invalid amount of cards");
+    }
+    const totalTokens =
+      this.players.reduce((sum, player) => sum + player.tokens, 0) +
+      (this.drawnCard != undefined ? this.drawnCard.tokens : 0);
+    if (totalTokens != this.players.length * this.config.startingTokens) {
+      console.error(totalTokens);
+      throw new Error("Invalid amount of tokens");
+    }
+  }
+
   public simulate(): GesjaaktResult {
     this.reset();
 
     while (!this.isGameOver()) {
-      const totalCards =
-        this.players.reduce((sum, player) => sum + player.cards.length, 0) +
-        this.deck.cardsLeft +
-        (this.drawnCard != undefined ? 1 : 0);
-      if (totalCards + this.config.discardedCards != 35 - 2) {
-        console.error(totalCards, this.config.discardedCards);
-        throw new Error("Invalid amount of cards");
-      }
+      // TODO remove for performance
+      this.validateGame();
+
       this.takeTurn();
       this.turnsTaken++;
     }
