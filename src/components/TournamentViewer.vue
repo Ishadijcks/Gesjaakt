@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, onUnmounted } from "vue";
 
 const props = defineProps<{
   tournament: Tournament;
@@ -18,13 +18,18 @@ const plays = computed(() => {
   return props.tournament.plays;
 });
 
+let timeOut: ReturnType<typeof setTimeout>;
 const simulateRound = () => {
   props.tournament.simulateRound();
-  setTimeout(() => simulateRound());
+  timeOut = setTimeout(() => simulateRound());
 };
 
 onMounted(() => {
   simulateRound();
+});
+
+onUnmounted(() => {
+  clearTimeout(timeOut);
 });
 </script>
 
