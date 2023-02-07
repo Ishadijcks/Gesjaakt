@@ -21,16 +21,15 @@ describe("Tournament", () => {
         isTokenCountPublic: true,
         firstPlayerStarts: true,
         debug: false,
-      },
-      ROUNDS
+      }
     );
 
     // Act
-    const result = tournament.simulate();
+    const result = tournament.simulate(ROUNDS);
 
-    tournament.players.forEach((player) => {
-      console.log(player.name + "\t", result.elos[player.name].join("\t"));
-    });
+    // tournament.players.forEach((player) => {
+    //   console.log(player.name + "\t", result.elos[player.name].join("\t"));
+    // });
 
     // Assert
     expect(result.wins["Never"]).toBeGreaterThanOrEqual(0.99 * ROUNDS);
