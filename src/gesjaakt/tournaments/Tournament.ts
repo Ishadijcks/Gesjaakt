@@ -12,60 +12,72 @@ import { GesjaaktError } from "@/gesjaakt/errors/GesjaaktError";
 export class Tournament {
   players: GesjaaktPlayer[];
 
-  rounds: number;
-
   config: GesjaaktConfig;
 
   public readonly PLAYERS_PER_GAME = 3;
 
-  constructor(
-    players: GesjaaktPlayer[],
-    gesjaaktConfig: GesjaaktConfig,
-    rounds: number
-  ) {
+  wins: Record<string, number> = {};
+  plays: Record<string, number> = {};
+  elos: Record<string, number[]> = {};
+
+  constructor(players: GesjaaktPlayer[], gesjaaktConfig: GesjaaktConfig) {
     if (players.length < this.PLAYERS_PER_GAME) {
       throw new GesjaaktError(
         `Cannot start a tournament with fewer than ${this.PLAYERS_PER_GAME} players`
       );
     }
     this.players = players;
-    this.rounds = rounds;
     this.config = gesjaaktConfig;
+
+    this.reset();
   }
 
-  public simulate(): TournamentResult {
-    const wins: Record<string, number> = {};
-    const plays: Record<string, number> = {};
-    const elos: Record<string, number[]> = {};
+  public reset(): void {
+    this.wins = {};
+    this.plays = {};
+    this.elos = {};
 
     this.players.forEach((player) => {
-      wins[player.name] = 0;
-      plays[player.name] = 0;
-      elos[player.name] = [];
+      this.wins[player.name] = 0;
+      this.plays[player.name] = 0;
+      this.elos[player.name] = [];
+    });
+  }
+
+  public simulateRound(): TournamentResult {
+    const shuffledPlayers = Random.shuffle([...this.players]);
+    const selectedPlayers = shuffledPlayers.slice(0, this.PLAYERS_PER_GAME);
+
+    const game = new GesjaaktGame(selectedPlayers, this.config);
+    const result = game.simulate();
+    Elo.updatePlayerElo(result.winner, result.losers);
+
+    // Update stats
+    this.wins[result.winner.name]++;
+    selectedPlayers.forEach((player) => {
+      // console.log(`Giving player ${player.name} an elo of ${player.elo}`);
+      this.elos[player.name].push(player.elo);
+      this.plays[player.name]++;
     });
 
-    for (let i = 0; i < this.rounds; i++) {
-      const shuffledPlayers = Random.shuffle([...this.players]);
-      const selectedPlayers = shuffledPlayers.slice(0, this.PLAYERS_PER_GAME);
+    return this.getResult();
+  }
 
-      const game = new GesjaaktGame(selectedPlayers, this.config);
-      const result = game.simulate();
-      Elo.updatePlayerElo(result.winner, result.losers);
+  public simulate(rounds: number): TournamentResult {
+    this.reset();
 
-      // Update stats
-      wins[result.winner.name]++;
-      selectedPlayers.forEach((player) => {
-        // console.log(`Giving player ${player.name} an elo of ${player.elo}`);
-        elos[player.name].push(player.elo);
-        plays[player.name]++;
-      });
+    for (let i = 0; i < rounds; i++) {
+      this.simulateRound();
     }
+    return this.getResult();
+  }
 
+  public getResult(): TournamentResult {
     return {
       players: this.players,
-      elos,
-      plays,
-      wins,
+      elos: this.elos,
+      plays: this.plays,
+      wins: this.wins,
     };
   }
 }

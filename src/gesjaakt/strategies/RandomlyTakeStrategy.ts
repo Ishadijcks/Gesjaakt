@@ -8,7 +8,8 @@ export class RandomlyTakeStrategy extends AbstractStrategy {
   constructor(probability: number) {
     super(
       `RandomlyTake (${probability})`,
-      "A basic strategy which takes the card with a probability"
+      "A basic strategy which takes the card with a probability of " +
+        probability
     );
     this.probability = probability;
   }
