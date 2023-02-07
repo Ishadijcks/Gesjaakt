@@ -6,19 +6,9 @@ import DeckComponent from "@/components/DeckComponent.vue";
 const props = defineProps<{
   game: GesjaaktGame;
 }>();
-
-const start = () => {
-  props.game.reset();
-  setInterval(() => {
-    if (!props.game.isGameOver()) {
-      props.game.takeTurn();
-    }
-  }, 100);
-};
 </script>
 
 <template>
-  <button class="m-2 p-4 border" @click="start">Start</button>
   <div class="flex flex-row space-x-4">
     <div class="flex flex-col flex-grow space-y-2">
       <PlayerComponent

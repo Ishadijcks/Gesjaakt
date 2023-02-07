@@ -8,6 +8,7 @@ import { NeverTakeStrategy } from "@/gesjaakt/strategies/NeverTakeStrategy";
 import { AlwaysTakeStrategy } from "@/gesjaakt/strategies/AlwaysTakeStrategy";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
 import TournamentViewer from "@/components/TournamentViewer.vue";
+import GameViewer from "@/components/GameViewer.vue";
 
 const allStrategies = [
   new IshaStrategy(),
@@ -28,14 +29,18 @@ const startTournament = (tournament: Tournament) => {
 
 <template>
   <div class="flex flex-row flex-wrap">
-    <tournament-builder
+    <TournamentBuilder
       @startTournament="startTournament"
       :available-strategies="allStrategies"
     />
-    <tournament-viewer
+    <TournamentViewer
       v-if="activeTournament"
       :tournament="activeTournament"
-    ></tournament-viewer>
+    ></TournamentViewer>
+    <GameViewer
+      v-if="activeTournament?.currentGame"
+      :game="activeTournament.currentGame"
+    />
   </div>
 </template>
 

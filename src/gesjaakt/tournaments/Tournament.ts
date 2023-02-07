@@ -20,6 +20,8 @@ export class Tournament {
   plays: Record<string, number> = {};
   elos: Record<string, number[]> = {};
 
+  currentGame: GesjaaktGame | undefined;
+
   constructor(players: GesjaaktPlayer[], gesjaaktConfig: GesjaaktConfig) {
     if (players.length < this.PLAYERS_PER_GAME) {
       throw new GesjaaktError(
@@ -48,8 +50,8 @@ export class Tournament {
     const shuffledPlayers = Random.shuffle([...this.players]);
     const selectedPlayers = shuffledPlayers.slice(0, this.PLAYERS_PER_GAME);
 
-    const game = new GesjaaktGame(selectedPlayers, this.config);
-    const result = game.simulate();
+    this.currentGame = new GesjaaktGame(selectedPlayers, this.config);
+    const result = this.currentGame.simulate();
     Elo.updatePlayerElo(result.winner, result.losers);
 
     // Update stats
