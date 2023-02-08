@@ -5,7 +5,6 @@ import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy
 import { IshaStrategy } from "@/gesjaakt/qers/IshaStrategy";
 import TournamentBuilder from "@/components/TournamentBuilder.vue";
 import { NeverTakeStrategy } from "@/gesjaakt/strategies/NeverTakeStrategy";
-import { AlwaysTakeStrategy } from "@/gesjaakt/strategies/AlwaysTakeStrategy";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
 import TournamentViewer from "@/components/TournamentViewer.vue";
 import GameViewer from "@/components/GameViewer.vue";
@@ -15,9 +14,8 @@ const allStrategies = [
   new TokenValueStrategy(3),
   new IshaStrategy(),
   new NeverTakeStrategy(),
-  new AlwaysTakeStrategy(),
+  new RandomlyTakeStrategy(0.3),
   new RandomlyTakeStrategy(0.5),
-  new RandomlyTakeStrategy(0.8),
   new TakeIfFreeStrategy(),
 ];
 
