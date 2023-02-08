@@ -9,8 +9,10 @@ import { AlwaysTakeStrategy } from "@/gesjaakt/strategies/AlwaysTakeStrategy";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
 import TournamentViewer from "@/components/TournamentViewer.vue";
 import GameViewer from "@/components/GameViewer.vue";
+import { TokenValueStrategy } from "@/gesjaakt/strategies/TokenValueStrategy";
 
 const allStrategies = [
+  new TokenValueStrategy(3),
   new IshaStrategy(),
   new NeverTakeStrategy(),
   new AlwaysTakeStrategy(),

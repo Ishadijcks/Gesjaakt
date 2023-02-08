@@ -31,6 +31,15 @@ onMounted(() => {
 onUnmounted(() => {
   clearTimeout(timeOut);
 });
+
+const sortedPlayers = computed(() => {
+  return [...players.value].sort((a, b) => b.elo - a.elo);
+});
+
+const percentage = (elo: number) => {
+  const maxElo = Math.max(...players.value.map((player) => player.elo));
+  return (elo / maxElo) * 100;
+};
 </script>
 
 <template>
@@ -41,9 +50,18 @@ onUnmounted(() => {
         <th>Elo</th>
         <th>Wins</th>
       </tr>
-      <tr v-for="player in players" :key="player.name">
+      <tr v-for="player in sortedPlayers" :key="player.name">
         <td class="w-1/3">{{ player.name }}</td>
-        <td class="w-1/3">{{ player.elo.toFixed(0) }}</td>
+        <td class="w-1/3">
+          <div
+            :style="`
+            width: ${percentage(player.elo)}%;
+            background-color: ${player.color};
+            `"
+          >
+            {{ player.elo.toFixed(0) }}
+          </div>
+        </td>
         <td class="w-1/3">
           {{ wins[player.name] }}/{{ plays[player.name] }} ({{
             ((wins[player.name] / plays[player.name]) * 100).toFixed(2)

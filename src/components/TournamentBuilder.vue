@@ -3,6 +3,7 @@ import { AbstractStrategy } from "@/gesjaakt/strategies/AbstractStrategy";
 import { ref } from "vue";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
 import { GesjaaktPlayer } from "@/gesjaakt/game/GesjaaktPlayer";
+import { Colors } from "@/util/Color";
 
 const props = defineProps<{
   availableStrategies: AbstractStrategy[];
@@ -23,8 +24,16 @@ const start = () => {
     (index) => props.availableStrategies[index]
   );
 
-  const players = strategies.map((strategy) => {
-    return new GesjaaktPlayer(strategy.name, strategy);
+  const colors = Colors.createHsvColorRange(
+    40,
+    320,
+    1,
+    1,
+    strategies.length + 1
+  ).map((hsv) => Colors.toHex(Colors.toRgb(hsv)));
+
+  const players = strategies.map((strategy, index) => {
+    return new GesjaaktPlayer(strategy.name, strategy, colors[index]);
   });
   const tournament = new Tournament(players, {
     discardedCards: discardedCards.value,

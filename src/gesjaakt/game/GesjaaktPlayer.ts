@@ -8,14 +8,20 @@ import { PlayerState } from "@/gesjaakt/game/PlayerState";
 export class GesjaaktPlayer {
   name: string;
   strategy: AbstractStrategy;
+  color: string;
   elo: number = 1000;
 
   cards: Card[];
   tokens: number;
 
-  constructor(name: string, strategy: AbstractStrategy) {
+  constructor(
+    name: string,
+    strategy: AbstractStrategy,
+    color: string = "#FFFFFF"
+  ) {
     this.name = name;
     this.strategy = strategy;
+    this.color = color;
     this.cards = [];
     this.tokens = 0;
   }
