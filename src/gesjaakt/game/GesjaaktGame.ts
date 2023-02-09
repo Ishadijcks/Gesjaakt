@@ -142,7 +142,7 @@ export class GesjaaktGame {
         this.drawnCard.addToken();
         this.nextPlayer();
         break;
-      case GesjaaktAction.TakeCard:
+      default:
         if (this.config.debug) {
           console.log(
             `${currentPlayer.name} got ${this.drawnCard} and took it`
