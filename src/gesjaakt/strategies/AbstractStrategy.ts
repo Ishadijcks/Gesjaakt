@@ -21,6 +21,20 @@ export abstract class AbstractStrategy {
   }
 
   /**
+   * Initialize your strategy, load in data, etc
+   */
+  public initialize(): void {
+    // Empty
+  }
+
+  /**
+   * Reset data between games, if needed
+   */
+  public reset(): void {
+    // Empty
+  }
+
+  /**
    * Process the game state and return an action to win the game!
    */
   public abstract calculateMove(state: GesjaaktState): GesjaaktAction;

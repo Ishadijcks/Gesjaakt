@@ -2,7 +2,7 @@
 import { TakeIfFreeStrategy } from "@/gesjaakt/strategies/TakeIfFreeStrategy";
 import { ref, Ref } from "vue";
 import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
-import { IshaStrategy } from "@/gesjaakt/qers/IshaStrategy";
+import { IshaStrategy } from "@/gesjaakt/qers/isha/IshaStrategy";
 import TournamentBuilder from "@/components/TournamentBuilder.vue";
 import { NeverTakeStrategy } from "@/gesjaakt/strategies/NeverTakeStrategy";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";

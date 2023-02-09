@@ -27,6 +27,10 @@ export class GesjaaktGame {
     this.turnsTaken = 0;
     this.deck = Deck.createDefaultDeck();
 
+    this.players.forEach((player) => {
+      player.strategy.initialize();
+    });
+
     this.reset();
   }
 
@@ -51,6 +55,10 @@ export class GesjaaktGame {
     this.currentPlayerIndex = this.config.firstPlayerStarts
       ? 0
       : Random.intBetween(0, this.players.length);
+
+    this.players.forEach((player) => {
+      player.strategy.reset();
+    });
   }
 
   /**

@@ -7,6 +7,14 @@ export class IshaStrategy extends AbstractStrategy {
     super("Isha", "Makes really smart decisions... sometimes");
   }
 
+  initialize() {
+    console.log("Trash talk module initiated...");
+  }
+
+  reset() {
+    console.log("Prepare to get Sjaakmatted");
+  }
+
   calculateMove(state: GesjaaktState): GesjaaktAction {
     // Don't want a multiple of 3 tokens, obviously
     if (state.currentPlayer.tokens % 3 === 0) {
