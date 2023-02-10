@@ -8,11 +8,11 @@ export class IshaStrategy extends AbstractStrategy {
   }
 
   initialize() {
-    console.log("Trash talk module initiated...");
+    // console.log("Trash talk module initiated...");
   }
 
   reset() {
-    console.log("Prepare to get Sjaakmatted");
+    // console.log("Prepare to get Sjaakmatted");
   }
 
   calculateMove(state: GesjaaktState): GesjaaktAction {

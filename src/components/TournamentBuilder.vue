@@ -43,7 +43,7 @@ const start = () => {
     randomizePlayerOrder: true,
     debug: false,
   });
-  emit("startTournament", tournament);
+  emit("startTournament", { tournament, rounds: rounds.value });
 };
 </script>
 

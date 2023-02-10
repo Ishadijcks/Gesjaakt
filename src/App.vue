@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TakeIfFreeStrategy } from "@/gesjaakt/strategies/TakeIfFreeStrategy";
-import { ref, Ref } from "vue";
+import { onUnmounted, ref, Ref } from "vue";
 import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
 import { IshaStrategy } from "@/gesjaakt/qers/isha/IshaStrategy";
 import TournamentBuilder from "@/components/TournamentBuilder.vue";
@@ -21,10 +21,31 @@ const allStrategies = [
 
 const activeTournament: Ref<Tournament | undefined> = ref();
 
-const startTournament = (tournament: Tournament) => {
-  activeTournament.value = tournament;
-  console.log(tournament);
+const startTournament = (args: { tournament: Tournament; rounds: number }) => {
+  clearTimeout(timeOut);
+  maxRounds.value = args.rounds;
+  roundsSimulated.value = 0;
+  activeTournament.value = args.tournament;
+  simulateRound();
 };
+
+let timeOut: ReturnType<typeof setTimeout>;
+const roundsSimulated = ref(0);
+const maxRounds = ref(0);
+const simulateRound = () => {
+  activeTournament.value?.simulateRound();
+  roundsSimulated.value++;
+
+  if (roundsSimulated.value >= maxRounds.value) {
+    clearTimeout(timeOut);
+    return;
+  }
+  timeOut = setTimeout(() => simulateRound());
+};
+
+onUnmounted(() => {
+  clearTimeout(timeOut);
+});
 </script>
 
 <template>
@@ -35,6 +56,8 @@ const startTournament = (tournament: Tournament) => {
     />
     <TournamentViewer
       v-if="activeTournament"
+      :current-round="roundsSimulated"
+      :max-rounds="maxRounds"
       :tournament="activeTournament"
     ></TournamentViewer>
     <GameViewer

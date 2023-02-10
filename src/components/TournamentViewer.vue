@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
-import { computed, onMounted, onUnmounted } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{
   tournament: Tournament;
+  maxRounds?: number;
+  currentRound?: number;
 }>();
 
 const players = computed(() => {
@@ -16,20 +18,6 @@ const wins = computed(() => {
 
 const plays = computed(() => {
   return props.tournament.plays;
-});
-
-let timeOut: ReturnType<typeof setTimeout>;
-const simulateRound = () => {
-  props.tournament.simulateRound();
-  timeOut = setTimeout(() => simulateRound());
-};
-
-onMounted(() => {
-  simulateRound();
-});
-
-onUnmounted(() => {
-  clearTimeout(timeOut);
 });
 
 const sortedPlayers = computed(() => {
@@ -69,5 +57,6 @@ const percentage = (elo: number) => {
         </td>
       </tr>
     </table>
+    <span>{{ currentRound }}/{{ maxRounds }}</span>
   </div>
 </template>
