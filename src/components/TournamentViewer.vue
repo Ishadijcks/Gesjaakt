@@ -20,6 +20,10 @@ const plays = computed(() => {
   return props.tournament.plays;
 });
 
+const matrix = computed(() => {
+  return props.tournament.matrix;
+});
+
 const sortedPlayers = computed(() => {
   return [...players.value].sort((a, b) => b.elo - a.elo);
 });
@@ -57,6 +61,33 @@ const percentage = (elo: number) => {
         </td>
       </tr>
     </table>
-    <span>{{ currentRound }}/{{ maxRounds }}</span>
+
+    <table class="w-full">
+      <tr>
+        <th>{{ currentRound }}/{{ maxRounds }}</th>
+        <th v-for="player in players" :key="player.name">{{ player.name }}</th>
+      </tr>
+      <tr v-for="player in players" :key="player.name">
+        <td>{{ player.name }}</td>
+        <td
+          v-for="opp in players"
+          :key="opp.name"
+          :title="`
+          ${matrix[player.name][opp.name].wins}/
+          ${matrix[player.name][opp.name].plays}
+          `"
+        >
+          {{
+            opp.name === player.name
+              ? "-"
+              : (
+                  (matrix[player.name][opp.name].wins /
+                    matrix[player.name][opp.name].plays) *
+                  100
+                ).toFixed(0) + "%"
+          }}
+        </td>
+      </tr>
+    </table>
   </div>
 </template>

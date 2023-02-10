@@ -20,6 +20,7 @@ export class Tournament {
   plays: Record<string, number> = {};
   elos: Record<string, number[]> = {};
 
+  matrix: Record<string, Record<string, { wins: number; plays: number }>> = {};
   currentGame: GesjaaktGame | undefined;
 
   constructor(players: GesjaaktPlayer[], gesjaaktConfig: GesjaaktConfig) {
@@ -38,11 +39,16 @@ export class Tournament {
     this.wins = {};
     this.plays = {};
     this.elos = {};
+    this.matrix = {};
 
     this.players.forEach((player) => {
       this.wins[player.name] = 0;
       this.plays[player.name] = 0;
       this.elos[player.name] = [];
+      this.matrix[player.name] = {};
+      this.players.forEach((p2) => {
+        this.matrix[player.name][p2.name] = { wins: 0, plays: 0 };
+      });
     });
   }
 
@@ -60,6 +66,17 @@ export class Tournament {
       // console.log(`Giving player ${player.name} an elo of ${player.elo}`);
       this.elos[player.name].push(player.elo);
       this.plays[player.name]++;
+
+      selectedPlayers.forEach((p2) => {
+        if (player.name === p2.name) {
+          return;
+        }
+        this.matrix[player.name][p2.name].plays++;
+
+        if (player.name === result.winner.name) {
+          this.matrix[player.name][p2.name].wins++;
+        }
+      });
     });
 
     return this.getResult();
@@ -80,6 +97,7 @@ export class Tournament {
       elos: this.elos,
       plays: this.plays,
       wins: this.wins,
+      matrix: this.matrix,
     };
   }
 }

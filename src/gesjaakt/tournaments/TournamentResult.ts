@@ -5,4 +5,6 @@ export interface TournamentResult {
   elos: Record<string, number[]>;
   wins: Record<string, number>;
   plays: Record<string, number>;
+
+  matrix: Record<string, Record<string, { wins: number; plays: number }>>;
 }
