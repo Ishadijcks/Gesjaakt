@@ -73,8 +73,9 @@ const percentage = (elo: number) => {
           v-for="opp in players"
           :key="opp.name"
           :title="`
-          ${matrix[player.name][opp.name].wins}/
-          ${matrix[player.name][opp.name].plays}
+          ${matrix[player.name][opp.name].wins}/${
+            matrix[player.name][opp.name].plays
+          }
           `"
         >
           {{
