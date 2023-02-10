@@ -45,7 +45,7 @@ export abstract class AbstractStrategy {
   public scoreIfTaking(state: GesjaaktState): number {
     return GesjaaktGame.calculateScore(
       [...state.currentPlayer.cards, state.drawnCard.card],
-      state.currentPlayer.tokens
+      state.currentPlayer.tokens + state.drawnCard.tokens
     );
   }
 }
