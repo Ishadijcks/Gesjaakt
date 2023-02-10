@@ -15,9 +15,7 @@ export class TokenValueStrategy extends AbstractStrategy {
 
   calculateMove(state: GesjaaktState): GesjaaktAction {
     const pointsDelta =
-      this.scoreIfTaking(state) -
-      state.currentPlayer.currentScore -
-      this.tokenValue * state.drawnCard.tokens;
+      this.scoreIfTaking(state) - state.currentPlayer.currentScore;
     if (pointsDelta <= this.tokenValue) {
       return GesjaaktAction.TakeCard;
     } else {
