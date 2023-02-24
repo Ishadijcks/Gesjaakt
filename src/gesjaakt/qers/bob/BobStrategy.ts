@@ -150,7 +150,7 @@ export class BobStrategy extends AbstractStrategy {
     if (this.waitedForCard === state.drawnCard.card.value) {
       // I waited
       // For now, only wait 1 round
-      console.log("got coins", this.waitedForCard);
+      // console.log("got coins", this.waitedForCard);
       this.waitedForCard = null;
       return false;
     }

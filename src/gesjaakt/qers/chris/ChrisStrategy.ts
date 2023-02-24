@@ -40,12 +40,12 @@ export class ChrisStrategy extends AbstractStrategy {
       state.currentPlayer.tokens < 5 &&
       state.drawnCard.card.value <= takeIfFewTokensLeft
     ) {
-      console.log(
-        "Chris takes",
-        state.drawnCard.card.value,
-        "because he has few tokens left and it's below",
-        takeIfFewTokensLeft + 1
-      );
+      // console.log(
+      //   "Chris takes",
+      //   state.drawnCard.card.value,
+      //   "because he has few tokens left and it's below",
+      //   takeIfFewTokensLeft + 1
+      // );
       return GesjaaktAction.TakeCard;
     }
 
@@ -54,12 +54,12 @@ export class ChrisStrategy extends AbstractStrategy {
       state.drawnCard.tokens == 1 &&
       state.drawnCard.card.value <= takeIfHas1Token
     ) {
-      console.log(
-        "Chris takes",
-        state.drawnCard.card.value,
-        "because it has 1 token and it's below",
-        takeIfHas1Token + 1
-      );
+      // console.log(
+      //   "Chris takes",
+      //   state.drawnCard.card.value,
+      //   "because it has 1 token and it's below",
+      //   takeIfHas1Token + 1
+      // );
       return GesjaaktAction.TakeCard;
     }
 
@@ -68,12 +68,12 @@ export class ChrisStrategy extends AbstractStrategy {
       state.drawnCard.tokens == 2 &&
       state.drawnCard.card.value <= takeIfHas2Tokens
     ) {
-      console.log(
-        "Chris takes",
-        state.drawnCard.card.value,
-        "because it has 2 tokens and it's below",
-        takeIfHas2Tokens + 1
-      );
+      // console.log(
+      //   "Chris takes",
+      //   state.drawnCard.card.value,
+      //   "because it has 2 tokens and it's below",
+      //   takeIfHas2Tokens + 1
+      // );
       return GesjaaktAction.TakeCard;
     }
 
@@ -82,12 +82,12 @@ export class ChrisStrategy extends AbstractStrategy {
       state.drawnCard.tokens > 2 &&
       state.drawnCard.card.value <= takeIfHas3Tokens
     ) {
-      console.log(
-        "Chris takes",
-        state.drawnCard.card.value,
-        "because it has 3 tokens and it's below",
-        takeIfHas3Tokens + 1
-      );
+      // console.log(
+      //   "Chris takes",
+      //   state.drawnCard.card.value,
+      //   "because it has 3 tokens and it's below",
+      //   takeIfHas3Tokens + 1
+      // );
       return GesjaaktAction.TakeCard;
     }
 
@@ -96,13 +96,13 @@ export class ChrisStrategy extends AbstractStrategy {
     let take = false;
     state.currentPlayer.cards.forEach(function (card) {
       if (card.value == state.drawnCard.card.value - 1) {
-        console.log(
-          "Chris takes",
-          state.drawnCard.card.value,
-          "because he has",
-          card.value,
-          "so it's free"
-        );
+        // console.log(
+        //   "Chris takes",
+        //   state.drawnCard.card.value,
+        //   "because he has",
+        //   card.value,
+        //   "so it's free"
+        // );
         take = true;
       }
     });

@@ -85,12 +85,12 @@ export class BennyStrategy extends AbstractStrategy {
           thief.name,
           this.tokenDiffThresholds.get(thief.name) - 3
         );
-        console.log(
-          "Lowered the threshold for greedy thief " +
-            thief.name +
-            " to " +
-            this.tokenDiffThresholds.get(thief.name)
-        );
+        // console.log(
+        //   "Lowered the threshold for greedy thief " +
+        //     thief.name +
+        //     " to " +
+        //     this.tokenDiffThresholds.get(thief.name)
+        // );
       }
 
       this.lastSkippedFreeCardValue = null;
