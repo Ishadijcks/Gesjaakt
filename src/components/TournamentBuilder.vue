@@ -4,6 +4,7 @@ import { ref } from "vue";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
 import { GesjaaktPlayer } from "@/gesjaakt/game/GesjaaktPlayer";
 import { Colors } from "@/util/Color";
+import { GesjaaktGame } from "@/gesjaakt/game/GesjaaktGame";
 
 const props = defineProps<{
   availableStrategies: AbstractStrategy[];
@@ -12,14 +13,15 @@ const props = defineProps<{
 const rounds = ref(1000);
 const tokens = ref(11);
 const discardedCards = ref(9);
+const turnDuration = ref(1000);
 
 const checkedStrategies = ref(
   props.availableStrategies.map((_, index) => index)
 );
 
-const emit = defineEmits(["startTournament"]);
+const emit = defineEmits(["startTournament", "startGame"]);
 
-const start = () => {
+const startTournament = () => {
   const strategies = checkedStrategies.value.map(
     (index) => props.availableStrategies[index]
   );
@@ -44,6 +46,35 @@ const start = () => {
     debug: false,
   });
   emit("startTournament", { tournament, rounds: rounds.value });
+};
+
+const startGame = () => {
+  const strategies = checkedStrategies.value.map(
+    (index) => props.availableStrategies[index]
+  );
+
+  const colors = Colors.createHsvColorRange(
+    40,
+    320,
+    1,
+    1,
+    strategies.length + 1
+  ).map((hsv) => Colors.toHex(Colors.toRgb(hsv)));
+
+  const players = strategies.map((strategy, index) => {
+    return new GesjaaktPlayer(strategy.name, strategy, colors[index]);
+  });
+
+  const game = new GesjaaktGame(players, {
+    discardedCards: discardedCards.value,
+    firstPlayerStarts: false,
+    startingTokens: tokens.value,
+    isTokenCountPublic: true,
+    randomizePlayerOrder: true,
+    debug: false,
+  });
+
+  emit("startGame", { game, turnDuration: turnDuration.value });
 };
 </script>
 
@@ -84,9 +115,21 @@ const start = () => {
         </td>
         <td>How many cards are discarded after shuffling the deck</td>
       </tr>
+      <tr>
+        <td>Turn duration (Single Game only)</td>
+        <td>
+          <input type="number" v-model="turnDuration" min="100" max="10000" />
+        </td>
+        <td>How long each turn takes (ms)</td>
+      </tr>
     </table>
 
-    <button class="p-4 border-2" @click="start()">Start!</button>
+    <button class="p-4 bg-blue-300 border-2" @click="startTournament()">
+      Start Tournament!
+    </button>
+    <button class="p-4 bg-green-300 border-2" @click="startGame()">
+      Start Game!
+    </button>
   </div>
 </template>
 
