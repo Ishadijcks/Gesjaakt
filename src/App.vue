@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { TakeIfFreeStrategy } from "@/gesjaakt/strategies/TakeIfFreeStrategy";
 import { onUnmounted, ref, Ref } from "vue";
-import { RandomlyTakeStrategy } from "@/gesjaakt/strategies/RandomlyTakeStrategy";
-import { IshaStrategy } from "@/gesjaakt/qers/isha/IshaStrategy";
 import TournamentBuilder from "@/components/TournamentBuilder.vue";
 import { NeverTakeStrategy } from "@/gesjaakt/strategies/NeverTakeStrategy";
 import { Tournament } from "@/gesjaakt/tournaments/Tournament";
 import TournamentViewer from "@/components/TournamentViewer.vue";
 import GameViewer from "@/components/GameViewer.vue";
 import { TokenValueStrategy } from "@/gesjaakt/strategies/TokenValueStrategy";
+import { BennyStrategy } from "@/gesjaakt/qers/benny/BennyStrategy";
+import { BobStrategy } from "@/gesjaakt/qers/bob/BobStrategy";
+import { ChrisStrategy } from "@/gesjaakt/qers/chris/ChrisStrategy";
 
 const allStrategies = [
   new TokenValueStrategy(3),
-  new IshaStrategy(),
   new NeverTakeStrategy(),
-  new RandomlyTakeStrategy(0.3),
-  new RandomlyTakeStrategy(0.5),
   new TakeIfFreeStrategy(),
+
+  new BennyStrategy(),
+  new BobStrategy(),
+  new ChrisStrategy(),
 ];
 
 const activeTournament: Ref<Tournament | undefined> = ref();
