@@ -10,7 +10,7 @@ export class BobStrategy extends AbstractStrategy {
   }
 
   private config = {
-    takeIfLowerOrEqualToXIncludingFiches: 8,
+    takeIfLowerOrEqualToXIncludingFiches: 12,
     jackpot: 15,
     tooHigh: 30,
   };
