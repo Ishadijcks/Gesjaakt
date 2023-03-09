@@ -58,7 +58,12 @@ export class Tournament {
 
     this.currentGame = new GesjaaktGame(selectedPlayers, this.config);
     const result = this.currentGame.simulate();
-    Elo.updatePlayerElo(result.winner, result.losers);
+
+    const loser =
+      result.losers[0].currentScore() > result.losers[1].currentScore()
+        ? result.losers[0]
+        : result.losers[1];
+    Elo.updatePlayerElo(result.winner, [loser]);
 
     // Update stats
     this.wins[result.winner.name]++;

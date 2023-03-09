@@ -12,15 +12,18 @@ import { TokenValueStrategy } from "@/gesjaakt/strategies/TokenValueStrategy";
 import { BennyStrategy } from "@/gesjaakt/qers/benny/BennyStrategy";
 import { BobStrategy } from "@/gesjaakt/qers/bob/BobStrategy";
 import { ChrisStrategy } from "@/gesjaakt/qers/chris/ChrisStrategy";
+import { DannyStrategy } from "@/gesjaakt/qers/danny/DannyStrategy";
+import { SiebrenStrategy } from "@/gesjaakt/qers/siebren/SiebrenStrategy";
 
 const allStrategies = [
   new TokenValueStrategy(3),
   new NeverTakeStrategy(),
   new TakeIfFreeStrategy(),
-
   new BennyStrategy(),
   new BobStrategy(),
   new ChrisStrategy(),
+  new DannyStrategy(),
+  new SiebrenStrategy(),
 ];
 
 const activeTournament: Ref<Tournament | undefined> = ref();
