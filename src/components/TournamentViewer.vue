@@ -30,7 +30,7 @@ const sortedPlayers = computed(() => {
 
 const percentage = (elo: number) => {
   const maxElo = Math.max(...players.value.map((player) => player.elo));
-  return (elo / maxElo) * 100;
+  return (Math.max(0, elo) / maxElo) * 100;
 };
 </script>
 
