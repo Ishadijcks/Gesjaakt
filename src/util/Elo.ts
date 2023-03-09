@@ -1,7 +1,7 @@
 import type { GesjaaktPlayer } from "@/gesjaakt/game/GesjaaktPlayer";
 
 export class Elo {
-  public static readonly D = 1600;
+  public static readonly D = 3200;
   public static readonly K = 8;
 
   public static updatePlayerElo(
